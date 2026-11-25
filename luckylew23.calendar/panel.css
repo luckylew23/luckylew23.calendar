@@ -1,0 +1,195 @@
+/* The Calendar tab: a month of the folder's daily notes under a bar with its
+   arrows, and the chosen day's notes under the month. Every control is Textus's
+   own; the dots under a day's number and the mark before a note's name are the
+   two things this page draws, and the dots sit inside the day's button so the
+   month keeps the grid Textus gives it. Widths are measured in text, so the
+   calendar follows the interface's text size. */
+body {
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+#bar,
+#grid,
+#day {
+  max-width: 22em;
+}
+#bar {
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3) 0;
+}
+#month {
+  /* A block, not the kit button's centred flex: its text starts at the left
+     and ends in an ellipsis when the bar is narrow. */
+  display: block;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--ui-text);
+  font: inherit;
+  font-size: var(--text-body);
+  font-weight: 600;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Too narrow for even the short name beside the buttons: the bar's buttons go
+   on to the row under it. */
+#bar.stacked #month {
+  flex-basis: 100%;
+}
+#month:enabled {
+  cursor: pointer;
+}
+#month:disabled {
+  opacity: 1;
+}
+#month:enabled:hover {
+  color: var(--ui-accent);
+}
+/* The month grid, and the week numbers that may go first in each row. */
+#grid {
+  padding: var(--space-2) var(--space-3) var(--space-1);
+}
+#grid.weeks {
+  grid-template-columns: auto repeat(7, 1fr);
+}
+.week {
+  min-width: 0;
+  padding: 0 var(--space-1) 0 0;
+  border: none;
+  background: transparent;
+  color: var(--ui-muted);
+  font: inherit;
+  font-size: var(--text-caption);
+  cursor: pointer;
+}
+.week:hover {
+  color: var(--ui-accent);
+}
+/* The day the note in front stands for: underlined, not coloured, so it reads
+   beside `is-today` and `is-other` without competing with them. */
+.cal-current {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+/* The chosen day, filled the way Obsidian's calendar fills it: `is-today` still
+   wins on today, so the two never fight over the same cell. */
+.tx-calendar-day.cal-selected {
+  background: var(--ui-selected);
+  color: var(--ui-text);
+}
+.tx-calendar-day.cal-selected.is-today {
+  color: var(--ui-accent-text);
+}
+/* How much a day holds: a shade that deepens with the notes written that day,
+   mixed from the app's own text colour so it follows the theme. Today and the
+   chosen days keep their own fill, and stay readable through it. */
+.tx-calendar-day[data-heat="1"]:not(.is-today):not(.cal-selected) {
+  background: color-mix(in srgb, var(--ui-text) 5%, transparent);
+}
+.tx-calendar-day[data-heat="2"]:not(.is-today):not(.cal-selected) {
+  background: color-mix(in srgb, var(--ui-text) 10%, transparent);
+}
+.tx-calendar-day[data-heat="3"]:not(.is-today):not(.cal-selected) {
+  background: color-mix(in srgb, var(--ui-text) 16%, transparent);
+}
+.tx-calendar-day[data-heat="4"]:not(.is-today):not(.cal-selected) {
+  background: color-mix(in srgb, var(--ui-text) 24%, transparent);
+}
+/* Words written: one dot each, at most five; the last one is hollow while the
+   day still has tasks open, and a single hollow dot stands for a day whose
+   tasks are open but whose words are not (yet) enough for a dot. The dots take
+   no room in the grid, so the month stays the size Textus gives it. */
+button[data-dots] {
+  position: relative;
+}
+.cal-dots {
+  position: absolute;
+  right: 0;
+  bottom: 0.1em;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.16em;
+  pointer-events: none;
+}
+.cal-dot {
+  width: 0.18em;
+  height: 0.18em;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+}
+.cal-dot.is-open {
+  background: transparent;
+  border: 1px solid currentColor;
+  opacity: 0.75;
+}
+/* The chosen day's notes: a heading with the day and its 新建日记 button, and
+   the notes under it, newest first, each with the mark of a note and the time
+   it was written. The list scrolls on its own so the month stays in place. */
+#day {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  margin-top: var(--space-1);
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  border-top: 1px solid var(--ui-border);
+}
+#day[hidden] {
+  display: none;
+}
+#daybar {
+  gap: var(--space-2);
+  padding: 0 0 var(--space-1);
+}
+.day-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ui-muted);
+  font-size: var(--text-secondary);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#newday[hidden] {
+  display: none;
+}
+#daylist {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+#daylist .cal-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  text-align: left;
+}
+.cal-mark {
+  flex: none;
+  width: 0.4em;
+  height: 0.4em;
+  border-radius: 50%;
+  background: var(--ui-muted);
+  opacity: 0.6;
+}
+.cal-mark.is-daily {
+  background: var(--ui-accent);
+  opacity: 1;
+}
+/* A week's own note, where the folder keeps them: the same accent, hallower. */
+.cal-mark.is-weekly {
+  background: var(--ui-accent);
+  opacity: 0.45;
+}
+#dayempty[hidden] {
+  display: none;
+}
