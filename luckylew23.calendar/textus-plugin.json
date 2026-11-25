@@ -1,0 +1,194 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CatVinci-Studio/Textus/main/docs/dev/textus-plugin.schema.json",
+  "id": "luckylew23.calendar",
+  "name": "%name%",
+  "version": "0.3.0",
+  "publisher": "luckylew23",
+  "author": "luckylew23",
+  "description": "%description%",
+  "license": "MIT",
+  "icon": "icon.svg",
+  "engines": { "textus": ">=1.4.3" },
+  "main": "host.js",
+  "platforms": ["desktop", "ios"],
+  "category": "notes",
+  "permissions": ["files.read", "files.write", "editor.read"],
+  "contributes": {
+    "commands": [
+      { "command": "luckylew23.calendar.open", "title": "%openView%" },
+      { "command": "luckylew23.calendar.today", "title": "%openToday%" },
+      { "command": "luckylew23.calendar.reveal", "title": "%reveal%" },
+      { "command": "luckylew23.calendar.week", "title": "%openWeek%" }
+    ],
+    "menus": {
+      "app/plugins": [
+        { "command": "luckylew23.calendar.open" },
+        { "command": "luckylew23.calendar.today" },
+        { "command": "luckylew23.calendar.week" },
+        { "command": "luckylew23.calendar.reveal" }
+      ],
+      "editor/context": [
+        { "command": "luckylew23.calendar.reveal", "when": "documentOpen" }
+      ]
+    },
+    "sidebarTabs": [
+      {
+        "id": "luckylew23.calendar.sidebar",
+        "title": "%calendar%",
+        "type": "webview",
+        "icon": "tab.svg"
+      }
+    ],
+    "views": [
+      {
+        "id": "luckylew23.calendar.view",
+        "title": "%calendar%",
+        "type": "webview",
+        "icon": "tab.svg"
+      }
+    ],
+    "settings": [
+      {
+        "key": "startWeek",
+        "type": "enum",
+        "title": "%startWeek%",
+        "description": "%startWeekHelp%",
+        "default": "locale",
+        "options": [
+          { "value": "locale", "label": "%startLocale%" },
+          { "value": "sunday", "label": "%startSunday%" },
+          { "value": "monday", "label": "%startMonday%" }
+        ]
+      },
+      {
+        "key": "wordsPerDot",
+        "type": "number",
+        "title": "%wordsPerDot%",
+        "description": "%wordsPerDotHelp%",
+        "default": 250,
+        "min": 0
+      },
+      {
+        "key": "showWeekNumbers",
+        "type": "boolean",
+        "title": "%showWeekNumbers%",
+        "description": "%showWeekNumbersHelp%",
+        "default": true
+      },
+      {
+        "key": "confirmNew",
+        "type": "boolean",
+        "title": "%confirmNew%",
+        "description": "%confirmNewHelp%",
+        "default": true
+      }
+    ]
+  },
+  "l10n": {
+    "en": {
+      "name": "Calendar",
+      "description": "The folder's daily notes as a month: a dot for every 250 words written, a hollow one while tasks are left open, a deeper shade for a day holding more notes, and the notes written on a day — or in a week — listed under the month.",
+      "openView": "Open the calendar",
+      "openToday": "Open today's note",
+      "reveal": "Show this note's day in the calendar",
+      "openWeek": "Open this week's note",
+      "calendar": "Calendar",
+      "startWeek": "Weeks start on",
+      "startWeekHelp": "The first column of the month. The language's own first day by default.",
+      "startLocale": "The language's first day",
+      "startSunday": "Sunday",
+      "startMonday": "Monday",
+      "wordsPerDot": "Words per dot",
+      "wordsPerDotHelp": "Each dot stands for this many words; 0 hides the dots and marks the days that have a note instead. Five dots at most.",
+      "showWeekNumbers": "Show week numbers",
+      "showWeekNumbersHelp": "A column of week numbers beside the days; one picks the whole week, and Ctrl or Cmd on it opens that week's note.",
+      "confirmNew": "Confirm before creating a note",
+      "confirmNewHelp": "Asks before the New note button writes the day's note.",
+      "pickMonth": "Pick a month",
+      "todayButton": "Today",
+      "prevMonth": "Previous month",
+      "nextMonth": "Next month",
+      "weekNumber": "Week {0}",
+      "noFolder": "Open a folder to see its days.",
+      "noWeekly": "This folder has no weekly notes set up.",
+      "notADailyNote": "No day's note is in front.",
+      "create": "Create",
+      "createDaily": "New note",
+      "noNotes": "Nothing written this day.",
+      "missingNote": "That note is no longer in this folder.",
+      "noWeekNotes": "Nothing written this week.",
+      "weekRange": "{0} · {1} – {2}",
+      "createQuestion": "There is no note for {0} yet. Create it?"
+    },
+    "zh": {
+      "name": "日历",
+      "description": "把文件夹里的日记摊成一个月：每写 250 字一个点，任务没做完时留一个空心点，当天笔记越多底色越深；点一天列出这天的笔记，点周数列出整周的。",
+      "openView": "打开日历",
+      "openToday": "打开今天的日记",
+      "reveal": "在日历里定位当前笔记那一天",
+      "openWeek": "打开本周的笔记",
+      "calendar": "日历",
+      "startWeek": "每周从哪天开始",
+      "startWeekHelp": "月份的第一列。默认跟随界面语言的第一天。",
+      "startLocale": "跟界面语言",
+      "startSunday": "周日",
+      "startMonday": "周一",
+      "wordsPerDot": "每个点代表多少字",
+      "wordsPerDotHelp": "每写这么多字画一个点；设为 0 就不画点，只标出有日记的日子。最多五个点。",
+      "showWeekNumbers": "显示周数",
+      "showWeekNumbersHelp": "在日期旁边加一列周数，点一下选中整周并列出这一周的笔记；Ctrl 或 ⌘ 点则打开那一周的笔记。",
+      "confirmNew": "新建日记前先确认",
+      "confirmNewHelp": "点「新建日记」时先问一句。",
+      "pickMonth": "选择月份",
+      "todayButton": "今天",
+      "prevMonth": "上一月",
+      "nextMonth": "下一月",
+      "weekNumber": "第 {0} 周",
+      "noFolder": "先打开一个文件夹，才能看到它的日子。",
+      "noWeekly": "这个文件夹没有设置周记。",
+      "notADailyNote": "当前打开的不是日记。",
+      "create": "新建",
+      "createDaily": "新建日记",
+      "noNotes": "这天还没有笔记。",
+      "missingNote": "这篇笔记已经不在这个文件夹里了。",
+      "noWeekNotes": "这一周还没有笔记。",
+      "weekRange": "{0} · {1} – {2}",
+      "createQuestion": "{0} 还没有日记，现在新建吗？"
+    },
+    "zh-Hant": {
+      "name": "日曆",
+      "description": "把資料夾裡的日記攤成一個月：每寫 250 字一個點，任務沒做完時留一個空心點，當天筆記越多底色越深；點一天列出這天的筆記，點週數列出整週的。",
+      "openView": "開啟日曆",
+      "openToday": "開啟今天的日記",
+      "reveal": "在日曆裡定位目前筆記那一天",
+      "openWeek": "開啟本週的筆記",
+      "calendar": "日曆",
+      "startWeek": "每週從哪天開始",
+      "startWeekHelp": "月份的第一欄。預設跟隨介面語言的第一天。",
+      "startLocale": "跟介面語言",
+      "startSunday": "週日",
+      "startMonday": "週一",
+      "wordsPerDot": "每個點代表多少字",
+      "wordsPerDotHelp": "每寫這麼多字畫一個點；設為 0 就不畫點，只標出有日記的日子。最多五個點。",
+      "showWeekNumbers": "顯示週數",
+      "showWeekNumbersHelp": "在日期旁邊加一欄週數，點一下選中整週並列出這一週的筆記；Ctrl 或 ⌘ 點則開啟那一週的筆記。",
+      "confirmNew": "新建日記前先確認",
+      "confirmNewHelp": "點「新建日記」時先問一句。",
+      "pickMonth": "選擇月份",
+      "todayButton": "今天",
+      "prevMonth": "上一月",
+      "nextMonth": "下一月",
+      "weekNumber": "第 {0} 週",
+      "noFolder": "先開啟一個資料夾，才能看到它的日子。",
+      "noWeekly": "這個資料夾沒有設定週記。",
+      "notADailyNote": "目前開啟的不是日記。",
+      "create": "新建",
+      "createDaily": "新建日記",
+      "noNotes": "這天還沒有筆記。",
+      "missingNote": "這篇筆記已經不在這個資料夾裡了。",
+      "noWeekNotes": "這一週還沒有筆記。",
+      "weekRange": "{0} · {1} – {2}",
+      "createQuestion": "{0} 還沒有日記，現在新建嗎？"
+    }
+  }
+}
