@@ -38,6 +38,7 @@ It reads and writes files in the open folder: to find the notes there, count the
 
 ## Changelog
 
+- **0.3.1** - The description now says why it asks for files.write: writing a day's missing note from the template.
 - **0.3.0** - A row in the list opens its note (resolved by relative path, with a notice when it is gone); the shade of a day deepens with the number of notes written in it; a click on a week number chooses the whole week and lists its notes, while Ctrl/⌘ click opens the weekly note.
 - **0.2.0** - A click chooses a day; the notes written that day are listed under the month (the day's own note first, then newest first, with times); a **New note** button; week numbers on by default.
 - **0.1.0** - First version: the month calendar in the sidebar and as a tab, a dot per N words, a hollow dot for open tasks, week numbers, the week starting as the language has it, Ctrl/⌘ click for a split, today and reveal-the-open-note, and an Obsidian vault's daily notes settings (Periodic Notes included).

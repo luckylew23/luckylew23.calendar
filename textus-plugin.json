@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/CatVinci-Studio/Textus/main/docs/dev/textus-plugin.schema.json",
   "id": "luckylew23.calendar",
   "name": "%name%",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publisher": "luckylew23",
   "author": "luckylew23",
   "description": "%description%",
@@ -87,7 +87,7 @@
   "l10n": {
     "en": {
       "name": "Calendar",
-      "description": "The folder's daily notes as a month: a dot for every 250 words written, a hollow one while tasks are left open, a deeper shade for a day holding more notes, and the notes written on a day — or in a week — listed under the month.",
+      "description": "The folder's daily notes as a month: a dot for every 250 words written, a hollow one while tasks are left open, a deeper shade for a day holding more notes, and the notes written on a day — or in a week — listed under the month. It writes a day's missing note from the template, which is what it asks files.write for.",
       "openView": "Open the calendar",
       "openToday": "Open today's note",
       "reveal": "Show this note's day in the calendar",
@@ -122,7 +122,7 @@
     },
     "zh": {
       "name": "日历",
-      "description": "把文件夹里的日记摊成一个月：每写 250 字一个点，任务没做完时留一个空心点，当天笔记越多底色越深；点一天列出这天的笔记，点周数列出整周的。",
+      "description": "把文件夹里的日记摊成一个月：每写 250 字一个点，任务没做完时留一个空心点，当天笔记越多底色越深；点一天列出这天的笔记，点周数列出整周的。当天没有笔记时按模板写上一篇，这是它要 files.write 的原因。",
       "openView": "打开日历",
       "openToday": "打开今天的日记",
       "reveal": "在日历里定位当前笔记那一天",
@@ -157,7 +157,7 @@
     },
     "zh-Hant": {
       "name": "日曆",
-      "description": "把資料夾裡的日記攤成一個月：每寫 250 字一個點，任務沒做完時留一個空心點，當天筆記越多底色越深；點一天列出這天的筆記，點週數列出整週的。",
+      "description": "把資料夾裡的日記攤成一個月：每寫 250 字一個點，任務沒做完時留一個空心點，當天筆記越多底色越深；點一天列出這天的筆記，點週數列出整週的。當天沒有筆記時依範本寫上一篇，這是它要 files.write 的原因。",
       "openView": "開啟日曆",
       "openToday": "開啟今天的日記",
       "reveal": "在日曆裡定位目前筆記那一天",
